@@ -3,6 +3,8 @@ package co.ke.softwareproviders.fanikiwagl;
 import java.util.HashMap;
 import java.util.List;
  
+
+import android.R;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;

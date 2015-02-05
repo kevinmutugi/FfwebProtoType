@@ -6,14 +6,29 @@
     android:background="#f4f4f4" >
  
     <Button
+        android:id="@+id/btnList"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/button_send"
-    android:onClick="sendMessage" />
+    android:text="@string/strLoadList" />
     
-            <ExpandableListView
+     <ExpandableListView
                 android:id="@+id/lvExp"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"/>   
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>  
+                
+       <ImageButton
+        android:id="@+id/btnimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/android_button" />
+       
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/strviewImage" />
+    
+           
+
  
 </LinearLayout>

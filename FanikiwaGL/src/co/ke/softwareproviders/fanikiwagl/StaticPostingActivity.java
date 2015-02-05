@@ -15,6 +15,19 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
+import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;    
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView; 
+import android.widget.ImageButton;
+import android.widget.TextView;  
+import android.view.View.OnClickListener;
 
 public class StaticPostingActivity extends ActionBarActivity {
 
@@ -23,24 +36,146 @@ public class StaticPostingActivity extends ActionBarActivity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
- 
+    ImageButton imageButton;
+    Button listButton;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	
     	super.onCreate(savedInstanceState);
 		setContentView(R.layout.static_posting_activity);
  
-        // get the listview
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
- 
-        // preparing list data
-        prepareListData();
- 
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
- 
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
+		 imageButton = (ImageButton) findViewById(R.id.btnimg);
+
+	        imageButton.setOnClickListener(new OnClickListener() {
+
+	            @Override
+	            public void onClick(View arg0) {
+
+	                new AsyncTaskLoadImage().execute();
+
+	            }
+
+	        });
+	        listButton = (Button) findViewById(R.id.btnList);
+
+	        listButton.setOnClickListener(new OnClickListener() {
+
+	            @Override
+	            public void onClick(View arg0) {
+
+	                new AsyncTaskLoadList().execute();
+
+	            }
+
+	        });
+       
     }
+    private class AsyncTaskLoadImage extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+         */
+        @Override
+        protected void onPostExecute(Void result) {
  
+            ImageView imgView = (ImageView) findViewById(R.id.imageView);
+            Drawable drawable = getResources().getDrawable(R.drawable.cert);
+            imgView.setImageDrawable(drawable);
+ 
+            Toast.makeText(StaticPostingActivity.this,
+                    "Photo was loaded Asynchronously!", Toast.LENGTH_SHORT).show();
+
+        }
+
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onPreExecute()
+         */
+        @Override
+        protected void onPreExecute() {
+            // Things to be done before execution of long running operation. For
+            // example showing ProgessDialog
+        }
+
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onProgressUpdate(Progress[])
+         */
+       /* @Override
+        protected void onProgressUpdate(String... text) {
+            finalResult.setText(text[0]);
+            // Things to be done while execution of long running operation is in
+            // progress. For example updating ProgessDialog
+        }*/
+    }
+    
+    private class AsyncTaskLoadList extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+         */
+        @Override
+        protected void onPostExecute(Void result) {
+
+        	 // get the listview
+            expListView = (ExpandableListView) findViewById(R.id.lvExp);     
+            // preparing list data
+            prepareListData();     
+            listAdapter = new ExpandableListAdapter(StaticPostingActivity.this, listDataHeader, listDataChild);     
+            // setting list adapter
+            expListView.setAdapter(listAdapter);
+             
+
+            Toast.makeText(StaticPostingActivity.this,
+                    "List was loaded Asynchronously!", Toast.LENGTH_SHORT).show();
+
+        }
+
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onPreExecute()
+         */
+        @Override
+        protected void onPreExecute() {
+            // Things to be done before execution of long running operation. For
+            // example showing ProgessDialog
+        }
+
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onProgressUpdate(Progress[])
+         */
+       /* @Override
+        protected void onProgressUpdate(String... text) {
+            finalResult.setText(text[0]);
+            // Things to be done while execution of long running operation is in
+            // progress. For example updating ProgessDialog
+        }*/
+    }
+    
     /*
      * Preparing the list data
      */
@@ -81,6 +216,13 @@ public class StaticPostingActivity extends ActionBarActivity {
         listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
         listDataChild.put(listDataHeader.get(1), nowShowing);
         listDataChild.put(listDataHeader.get(2), comingSoon);
+    }
+    
+    public void LoadPhoto() {
+    	ImageView imgView = (ImageView) findViewById(R.id.imageView);
+        Drawable drawable = getResources().getDrawable(R.drawable.cert);
+        imgView.setImageDrawable(drawable);
+
     }
     
 	@Override
